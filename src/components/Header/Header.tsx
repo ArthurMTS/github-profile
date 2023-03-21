@@ -2,7 +2,7 @@ import React from "react";
 import { useTheme } from "@mui/material/styles";
 
 import { HeaderWrapper, Title, Icon } from "./Header.styles";
-import { ColorModeContext } from "@/contexts/colorMode";
+import { ColorModeContext } from "@/contexts";
 import SwitchClosed from "@/assets/icons/SwitchClosed.svg";
 import SwitchOpened from "@/assets/icons/SwitchOpened.svg";
 

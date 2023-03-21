@@ -3,7 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import { Header, PageContainer } from "@/components";
 import { getThemeColors } from "@/config/theme";
-import { ColorModeContext } from "@/contexts/colorMode";
+import { ColorModeContext } from "@/contexts";
 
 export const App: React.FC = () => {
   const { mode } = React.useContext(ColorModeContext);
