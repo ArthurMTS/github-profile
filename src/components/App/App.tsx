@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 
-import { Header } from "@/components";
+import { Header, PageContainer } from "@/components";
 import { getThemeColors } from "@/config/theme";
 import { ColorModeContext } from "@/contexts/colorMode";
 
@@ -17,6 +17,7 @@ export const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <Header />
+      <PageContainer />
     </ThemeProvider>
   );
 };

@@ -15,7 +15,7 @@ export const getThemeColors = (mode: "dark" | "light") =>
             }
           : {
               default: "#C5C5C5",
-              paper: "#D6D6D6",
+              paper: "#E7E7E7",
             }),
       },
       text: {
