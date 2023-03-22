@@ -1,4 +1,4 @@
-import { Button, styled, TextField, Typography } from "@mui/material";
+import { Button, Link, styled, TextField, Typography } from "@mui/material";
 
 export const MainWrapper = styled("section")({
   display: "flex",
@@ -68,11 +68,15 @@ export const InfoWrapper = styled("div")({
   gap: 6,
 });
 
-export const UserFullName = styled(Typography)({
+export const UserFullName = styled(Link)({
+  fontFamily: "Roboto Mono",
   fontSize: 32,
   fontWeight: 500,
   lineHeight: "38px",
   letterSpacing: 0,
+  cursor: "pointer",
+  textDecoration: "none",
+  transition: "all .2s",
 });
 
 export const UserName = styled(Typography)({

@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import { Button as MuiButton, Typography } from "@mui/material";
+import { Button as MuiButton, Link, Typography } from "@mui/material";
 
 export const AsideWrapper = styled("aside")({
   display: "flex",
@@ -44,9 +44,11 @@ export const Quantity = styled(Typography)({
   color: "#EFEFEF",
 });
 
-export const RepoCardWrapper = styled("div")({
+export const RepoCardWrapper = styled(Link)({
   display: "flex",
   flexDirection: "column",
+  textDecoration: "none",
+  cursor: "pointer",
 });
 
 export const RepoTitle = styled(Typography)({
@@ -87,6 +89,7 @@ export const UserCardWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
+  cursor: "pointer",
 });
 
 export const UserCardAvatar = styled("img")({

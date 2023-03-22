@@ -1,5 +1,6 @@
 import { UserContext } from "@/contexts";
 import { formatedDate } from "@/utils/date";
+import { getUser } from "@/utils/user";
 import { useTheme } from "@mui/material/styles";
 import React from "react";
 
@@ -33,11 +34,11 @@ interface RepoCardProps {
   description?: string;
   language: string;
   updatedAt: string;
+  url: string;
 }
 
 interface UserCardProps {
   avatar: string;
-  name: string;
   login: string;
 }
 
@@ -78,11 +79,12 @@ const RepoCard: React.FC<RepoCardProps> = ({
   description,
   language,
   updatedAt,
+  url,
 }) => {
   const theme = useTheme();
 
   return (
-    <RepoCardWrapper>
+    <RepoCardWrapper href={url} target="_blank">
       <RepoTitle sx={{ color: theme.palette.primary.main }}>{title}</RepoTitle>
       <RepoDescription sx={{ color: theme.palette.text.secondary }}>
         {description}
@@ -100,13 +102,14 @@ const RepoCard: React.FC<RepoCardProps> = ({
   );
 };
 
-const UserCard: React.FC<UserCardProps> = ({ avatar, name, login }) => {
+const UserCard: React.FC<UserCardProps> = ({ avatar, login }) => {
+  const { setUser } = React.useContext(UserContext);
   const theme = useTheme();
 
   return (
-    <UserCardWrapper>
+    <UserCardWrapper onClick={() => getUser(login, setUser)}>
       <UserInfoWrapper>
-        <UserCardAvatar src={avatar} alt={name} />
+        <UserCardAvatar src={avatar} alt={login} />
         <UserName sx={{ color: theme.palette.text.primary }}>{login}</UserName>
       </UserInfoWrapper>
       <HR />
@@ -172,6 +175,7 @@ export const Aside: React.FC = () => {
                 description={repo?.description}
                 language={repo?.language}
                 updatedAt={repo?.updated_at}
+                url={repo?.html_url}
               />
             ))
           : ""}
@@ -180,7 +184,6 @@ export const Aside: React.FC = () => {
               <UserCard
                 key={index}
                 avatar={follower?.avatar_url}
-                name={follower?.name}
                 login={follower?.login}
               />
             ))
@@ -190,7 +193,6 @@ export const Aside: React.FC = () => {
               <UserCard
                 key={index}
                 avatar={following?.avatar_url}
-                name={following?.name}
                 login={following?.login}
               />
             ))
@@ -203,6 +205,7 @@ export const Aside: React.FC = () => {
                 description={repo?.description}
                 language={repo?.language}
                 updatedAt={repo?.updated_at}
+                url={repo?.html_url}
               />
             ))
           : ""}

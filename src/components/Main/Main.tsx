@@ -12,8 +12,8 @@ import {
   UserFullName,
   UserName,
 } from "./Main.styles";
-import { api } from "@/config/api";
 import { UserContext } from "@/contexts";
+import { getUser } from "@/utils/user";
 
 export const Main: React.FC = () => {
   const [username, setUsername] = React.useState("");
@@ -24,21 +24,7 @@ export const Main: React.FC = () => {
     setUsername(event.target.value);
   const onFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const result = await api.get(`/${username}`);
-    const stars = await api.get(`/${username}/starred`);
-    const repos = await api.get(`/${username}/repos`);
-    const followers = await api.get(`/${username}/followers`);
-    const following = await api.get(`/${username}/following`);
-    const user = {
-      ...result.data,
-      stars: stars.data.length,
-      repos_list: repos.data,
-      stars_list: stars.data,
-      followers_list: followers.data,
-      following_list: following.data,
-    };
-    console.log(user);
-    setUser(user);
+    getUser(username, setUser);
   };
 
   return (
@@ -63,7 +49,15 @@ export const Main: React.FC = () => {
             sx={{ borderColor: theme.palette.primary.main }}
           />
           <InfoWrapper>
-            <UserFullName sx={{ color: theme.palette.text.primary }}>
+            <UserFullName
+              href={`https://github.com/${user?.login}`}
+              target="_blank"
+              sx={[
+                { color: theme.palette.text.primary },
+                { "&:hover": { color: theme.palette.primary.main } },
+              ]}
+              title="Open in Github"
+            >
               {user?.name}
             </UserFullName>
             <UserName sx={{ color: theme.palette.text.secondary }}>
