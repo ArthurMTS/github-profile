@@ -6,4 +6,5 @@ export const PageContainerWrapper = styled("main")({
   display: "flex",
   justifyContent: "center",
   padding: "0 177px",
+  gap: 132,
 });

@@ -4,3 +4,24 @@
   outline: 0;
   box-sizing: border-box;
 }
+
+/* width */
+::-webkit-scrollbar {
+  height: 2px;
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #353535;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #5F30E5;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #542ac7;
+}
