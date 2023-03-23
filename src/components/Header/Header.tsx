@@ -4,21 +4,18 @@ import { useTheme } from "@mui/material/styles";
 import {
   HeaderWrapper,
   Title,
-  Icon,
   FormWrapper,
   SearchInput,
   SubmitButton,
   ModeSwitch,
 } from "./Header.styles";
 import { ColorModeContext, UserContext } from "@/contexts";
-import SwitchClosed from "@/assets/icons/SwitchClosed.svg";
-import SwitchOpened from "@/assets/icons/SwitchOpened.svg";
 import { getUser } from "@/utils/user";
 
 export const Header: React.FC = () => {
   const [username, setUsername] = React.useState("");
   const { mode, toggleColorMode } = React.useContext(ColorModeContext);
-  const { user, setUser } = React.useContext(UserContext);
+  const { setUser, setLoading } = React.useContext(UserContext);
   const theme = useTheme();
 
   const onSwitchButtonClick = () => toggleColorMode();
@@ -26,6 +23,8 @@ export const Header: React.FC = () => {
     setUsername(event.target.value);
   const onFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setUser(null);
+    setLoading(true);
     getUser(username, setUser);
   };
 

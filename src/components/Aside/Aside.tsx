@@ -26,6 +26,11 @@ import {
   UserInfoWrapper,
   UserName,
 } from "./Aside.styles";
+import { User } from "@/config/types";
+
+interface AsideProps {
+  user: User;
+}
 
 interface RepoCardProps {
   title: string;
@@ -72,8 +77,13 @@ const UserCard: React.FC<UserCardProps> = ({ avatar, login }) => {
   const { setUser } = React.useContext(UserContext);
   const theme = useTheme();
 
+  const onUserCardClick = () => {
+    setUser(null);
+    getUser(login, setUser);
+  };
+
   return (
-    <UserCardWrapper onClick={() => getUser(login, setUser)}>
+    <UserCardWrapper onClick={onUserCardClick}>
       <UserInfoWrapper>
         <UserCardAvatar src={avatar} alt={login} />
         <UserName sx={{ color: theme.palette.text.primary }}>{login}</UserName>
@@ -83,9 +93,8 @@ const UserCard: React.FC<UserCardProps> = ({ avatar, login }) => {
   );
 };
 
-export const Aside: React.FC = () => {
+export const Aside: React.FC<AsideProps> = ({ user }) => {
   const [control, setControl] = React.useState(0);
-  const { user } = React.useContext(UserContext);
   const theme = useTheme();
 
   return (
@@ -93,7 +102,11 @@ export const Aside: React.FC = () => {
       <Controls variant="permanent" anchor="right" open={true}>
         <List>
           <ListItem
-            sx={control === 0 ? { backgroundColor: theme.palette.primary.main } : {}}
+            sx={
+              control === 0
+                ? { backgroundColor: theme.palette.primary.main }
+                : {}
+            }
             title="Repositórios"
             disablePadding
             onClick={() => setControl(0)}
@@ -105,7 +118,11 @@ export const Aside: React.FC = () => {
             </ListItemButton>
           </ListItem>
           <ListItem
-            sx={control === 1 ? { backgroundColor: theme.palette.primary.main } : {}}
+            sx={
+              control === 1
+                ? { backgroundColor: theme.palette.primary.main }
+                : {}
+            }
             title="Estrelas"
             disablePadding
             onClick={() => setControl(1)}
@@ -117,7 +134,11 @@ export const Aside: React.FC = () => {
             </ListItemButton>
           </ListItem>
           <ListItem
-            sx={control === 2 ? { backgroundColor: theme.palette.primary.main } : {}}
+            sx={
+              control === 2
+                ? { backgroundColor: theme.palette.primary.main }
+                : {}
+            }
             title="Seguidores"
             disablePadding
             onClick={() => setControl(2)}
@@ -129,7 +150,11 @@ export const Aside: React.FC = () => {
             </ListItemButton>
           </ListItem>
           <ListItem
-            sx={control === 3 ? { backgroundColor: theme.palette.primary.main } : {}}
+            sx={
+              control === 3
+                ? { backgroundColor: theme.palette.primary.main }
+                : {}
+            }
             title="Seguindo"
             disablePadding
             onClick={() => setControl(3)}

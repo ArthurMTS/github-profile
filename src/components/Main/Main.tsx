@@ -14,7 +14,11 @@ import {
   DataValue,
   StatisticsWrapper,
 } from "./Main.styles";
-import { UserContext } from "@/contexts";
+import { User } from "@/config/types";
+
+interface MainProps {
+  user: User;
+}
 
 interface DataDisplayProps {
   title: string;
@@ -36,52 +40,45 @@ const DataDisplay: React.FC<DataDisplayProps> = ({ title, value }) => {
   );
 };
 
-export const Main: React.FC = () => {
-  const { user } = React.useContext(UserContext);
+export const Main: React.FC<MainProps> = ({ user }) => {
   const theme = useTheme();
 
   return (
     <MainWrapper>
-      {user ? (
-        <React.Fragment>
-          <UserAvatar
-            src={user?.avatar_url}
-            alt={user?.login}
-            sx={{ borderColor: theme.palette.primary.main }}
-          />
-          <Content>
-            <InfoWrapper>
-              <UserName sx={[{ color: theme.palette.text.primary }]}>
-                {user?.name} ({user?.login})
-              </UserName>
-              <UserBio sx={{ color: theme.palette.text.secondary }}>
-                {user?.bio}
-              </UserBio>
-            </InfoWrapper>
-            <StatisticsWrapper>
-              <ViewButton
-                href={`https://github.com/${user?.login}`}
-                target="_blank"
-                sx={[
-                  {
-                    color: theme.palette.text.primary,
-                    borderColor: theme.palette.text.primary,
-                  },
-                  { "&:hover": { borderColor: theme.palette.primary.main } },
-                ]}
-              >
-                View Github
-              </ViewButton>
-              <DataDisplay title="Seguidores" value={user?.followers} />
-              <DataDisplay title="Seguindo" value={user?.following} />
-              <DataDisplay title="Repositórios" value={user?.public_repos} />
-              <DataDisplay title="Estrelas" value={user?.stars} />
-            </StatisticsWrapper>
-          </Content>
-        </React.Fragment>
-      ) : (
-        ""
-      )}
+      <UserAvatar
+        src={user?.avatar_url}
+        alt={user?.login}
+        sx={{ borderColor: theme.palette.primary.main }}
+      />
+      <Content>
+        <InfoWrapper>
+          <UserName sx={[{ color: theme.palette.text.primary }]}>
+            {user?.name} ({user?.login})
+          </UserName>
+          <UserBio sx={{ color: theme.palette.text.secondary }}>
+            {user?.bio}
+          </UserBio>
+        </InfoWrapper>
+        <StatisticsWrapper>
+          <ViewButton
+            href={`https://github.com/${user?.login}`}
+            target="_blank"
+            sx={[
+              {
+                color: theme.palette.text.primary,
+                borderColor: theme.palette.text.primary,
+              },
+              { "&:hover": { borderColor: theme.palette.primary.main } },
+            ]}
+          >
+            View Github
+          </ViewButton>
+          <DataDisplay title="Seguidores" value={user?.followers} />
+          <DataDisplay title="Seguindo" value={user?.following} />
+          <DataDisplay title="Repositórios" value={user?.public_repos} />
+          <DataDisplay title="Estrelas" value={user?.stars} />
+        </StatisticsWrapper>
+      </Content>
     </MainWrapper>
   );
 };
