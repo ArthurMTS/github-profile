@@ -2,11 +2,18 @@ import { Button, Switch, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 
 export const HeaderWrapper = styled("header")({
-  height: 70,
+  minHeight: 70,
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
   padding: "0 120px 0 60px",
+  "@media(max-width: 790px)": {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  "@media(max-width: 410px)": {
+    padding: "0 65px 0 5px",
+  },
 });
 
 export const Title = styled(Typography)({
@@ -14,6 +21,9 @@ export const Title = styled(Typography)({
   fontWeight: 500,
   lineHeight: "38px",
   letterSpacing: 0,
+  "@media(max-width: 600px)": {
+    fontSize: 20,
+  },
 });
 
 export const FormWrapper = styled("form")({
@@ -21,10 +31,13 @@ export const FormWrapper = styled("form")({
   justifyContent: "center",
   alignItems: "center",
   gap: 30,
+  "@media(max-width: 600px)": {
+    gap: 5,
+  },
 });
 
 export const SearchInput = styled(TextField)({
-  width: 330,
+  maxWidth: 330,
   "& div": {
     borderColor: "inherit",
   },
@@ -35,6 +48,10 @@ export const SearchInput = styled(TextField)({
     fontSize: 20,
     fontWeight: 500,
     letterSpacing: 0,
+    "@media(max-width: 600px)": {
+      fontSize: 16,
+      padding: "0 10px",
+    },
   },
   "& fieldset": {
     borderWidth: 3,
@@ -56,6 +73,11 @@ export const SubmitButton = styled(Button)({
   lineHeight: "32px",
   letterSpacing: 0,
   textTransform: "capitalize",
+  "@media(max-width: 600px)": {
+    fontSize: 16,
+    height: 40,
+    width: 80,
+  },
 });
 
 export const ModeSwitch = styled(Switch)(({ theme }) => ({

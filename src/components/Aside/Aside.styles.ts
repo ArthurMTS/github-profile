@@ -28,6 +28,15 @@ export const Display = styled("div")({
   overflowY: "scroll",
   padding: "18px 16px",
   boxShadow: "2px 2px 5px #000",
+  "@media(max-width: 1085px)": {
+    width: "50vw",
+  },
+  "@media(max-width: 655px)": {
+    width: "70vw",
+  },
+  "@media(max-width: 520px)": {
+    width: "75vw",
+  },
 });
 
 export const Button = styled(MuiButton)({
