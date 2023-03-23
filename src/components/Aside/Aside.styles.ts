@@ -1,29 +1,33 @@
 import { styled } from "@mui/system";
-import { Button as MuiButton, Link, Typography } from "@mui/material";
+import { Button as MuiButton, Drawer, Link, Typography } from "@mui/material";
 
 export const AsideWrapper = styled("aside")({
   display: "flex",
   flexDirection: "column",
-  gap: 15,
-  marginTop: 30,
+  marginTop: 20,
 });
 
-export const Controls = styled("div")({
-  height: 172,
-  width: 300,
-  borderRadius: 20,
-  display: "flex",
-  flexDirection: "column",
-  gap: 9,
-  padding: "12px 15px",
+export const Controls = styled(Drawer)({
+  "& .MuiPaper-root": {
+    paddingTop: 107,
+    width: 60,
+    overflowX: "hidden",
+    "& ul": {
+      display: "flex",
+      flexDirection: "column",
+      gap: 5,
+    },
+  },
 });
 
 export const Display = styled("div")({
-  height: 320,
-  width: 300,
-  borderRadius: 20,
+  height: 480,
+  width: "30vw",
+  borderTopLeftRadius: 10,
+  borderBottomLeftRadius: 10,
   overflowY: "scroll",
   padding: "18px 16px",
+  boxShadow: "2px 2px 5px #000",
 });
 
 export const Button = styled(MuiButton)({
@@ -65,6 +69,7 @@ export const RepoDescription = styled(Typography)({
   lineHeight: "19px",
   letterSpacing: 0,
   marginBottom: 3,
+  textAlign: "justify",
 });
 
 export const RepoLabelWrapper = styled("div")({

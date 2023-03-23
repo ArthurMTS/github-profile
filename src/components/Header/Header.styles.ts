@@ -6,7 +6,7 @@ export const HeaderWrapper = styled("header")({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  padding: "0 60px",
+  padding: "0 120px 0 60px",
 });
 
 export const Title = styled(Typography)({

@@ -1,6 +1,11 @@
 import { UserContext } from "@/contexts";
 import { formatedDate } from "@/utils/date";
 import { getUser } from "@/utils/user";
+import { List, ListItem, ListItemButton, ListItemIcon } from "@mui/material";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import PersonPinCircleIcon from "@mui/icons-material/PersonPinCircle";
+import BookIcon from "@mui/icons-material/Book";
+import StarIcon from "@mui/icons-material/Star";
 import { useTheme } from "@mui/material/styles";
 import React from "react";
 
@@ -22,13 +27,6 @@ import {
   UserName,
 } from "./Aside.styles";
 
-interface ControlButtonProps {
-  label: string;
-  quantity: number;
-  onClick?: () => void;
-  sx: {};
-}
-
 interface RepoCardProps {
   title: string;
   description?: string;
@@ -41,38 +39,6 @@ interface UserCardProps {
   avatar: string;
   login: string;
 }
-
-const ControlButton: React.FC<ControlButtonProps> = ({
-  label,
-  quantity,
-  onClick,
-  sx,
-}) => {
-  const theme = useTheme();
-
-  return (
-    <Button
-      onClick={onClick}
-      sx={[
-        {
-          "&:hover": {
-            backgroundColor: theme.palette.background.paper,
-          },
-        },
-        sx,
-      ]}
-    >
-      <span>{label}</span>{" "}
-      <Quantity
-        sx={{
-          background: theme.palette.primary.main,
-        }}
-      >
-        {quantity}
-      </Quantity>
-    </Button>
-  );
-};
 
 const RepoCard: React.FC<RepoCardProps> = ({
   title,
@@ -124,47 +90,57 @@ export const Aside: React.FC = () => {
 
   return (
     <AsideWrapper>
-      <Controls sx={{ background: theme.palette.background.default }}>
-        <ControlButton
-          sx={
-            control === 0
-              ? { backgroundColor: theme.palette.background.paper }
-              : {}
-          }
-          label="Repositórios"
-          quantity={user?.public_repos || 0}
-          onClick={() => setControl(0)}
-        />
-        <ControlButton
-          sx={
-            control === 1
-              ? { backgroundColor: theme.palette.background.paper }
-              : {}
-          }
-          label="Seguidores"
-          quantity={user?.followers || 0}
-          onClick={() => setControl(1)}
-        />
-        <ControlButton
-          sx={
-            control === 2
-              ? { backgroundColor: theme.palette.background.paper }
-              : {}
-          }
-          label="Seguindo"
-          quantity={user?.following || 0}
-          onClick={() => setControl(2)}
-        />
-        <ControlButton
-          sx={
-            control === 3
-              ? { backgroundColor: theme.palette.background.paper }
-              : {}
-          }
-          label="Estrelas"
-          quantity={user?.stars || 0}
-          onClick={() => setControl(3)}
-        />
+      <Controls variant="permanent" anchor="right" open={true}>
+        <List>
+          <ListItem
+            sx={control === 0 ? { backgroundColor: theme.palette.primary.main } : {}}
+            title="Repositórios"
+            disablePadding
+            onClick={() => setControl(0)}
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                <BookIcon />
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            sx={control === 1 ? { backgroundColor: theme.palette.primary.main } : {}}
+            title="Estrelas"
+            disablePadding
+            onClick={() => setControl(1)}
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                <StarIcon />
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            sx={control === 2 ? { backgroundColor: theme.palette.primary.main } : {}}
+            title="Seguidores"
+            disablePadding
+            onClick={() => setControl(2)}
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                <PeopleAltIcon />
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            sx={control === 3 ? { backgroundColor: theme.palette.primary.main } : {}}
+            title="Seguindo"
+            disablePadding
+            onClick={() => setControl(3)}
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                <PersonPinCircleIcon />
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+        </List>
       </Controls>
       <Display sx={{ background: theme.palette.background.default }}>
         {control === 0
@@ -179,7 +155,7 @@ export const Aside: React.FC = () => {
               />
             ))
           : ""}
-        {control === 1
+        {control === 2
           ? user?.followers_list.map((follower, index) => (
               <UserCard
                 key={index}
@@ -188,7 +164,7 @@ export const Aside: React.FC = () => {
               />
             ))
           : ""}
-        {control === 2
+        {control === 3
           ? user?.following_list.map((following, index) => (
               <UserCard
                 key={index}
@@ -197,7 +173,7 @@ export const Aside: React.FC = () => {
               />
             ))
           : ""}
-        {control === 3
+        {control === 1
           ? user?.stars_list.map((repo, index) => (
               <RepoCard
                 key={index}
