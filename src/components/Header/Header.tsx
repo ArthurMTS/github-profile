@@ -14,6 +14,7 @@ import { getUser } from "@/utils/user";
 
 export const Header: React.FC = () => {
   const [username, setUsername] = React.useState("");
+  const [error, setError] = React.useState(false);
   const { mode, toggleColorMode } = React.useContext(ColorModeContext);
   const { setUser, setLoading } = React.useContext(UserContext);
   const theme = useTheme();
@@ -25,7 +26,7 @@ export const Header: React.FC = () => {
     event.preventDefault();
     setUser(null);
     setLoading(true);
-    getUser(username, setUser);
+    getUser(username, setUser, setError);
   };
 
   return (
@@ -39,6 +40,8 @@ export const Header: React.FC = () => {
           value={username}
           onChange={onSearchInputChange}
           required
+          error={error}
+          helperText={error ? "Usuário não encontrado" : ""}
         />
         <SubmitButton variant="outlined" type="submit">
           Search
