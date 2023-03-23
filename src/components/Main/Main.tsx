@@ -2,45 +2,46 @@ import { useTheme } from "@mui/material/styles";
 import React from "react";
 
 import {
-  FormWrapper,
   InfoWrapper,
+  Content,
   MainWrapper,
-  SearchInput,
-  SubmitButton,
   UserAvatar,
   UserBio,
-  UserFullName,
   UserName,
+  ViewButton,
+  DisplayWrapper,
+  DataTitle,
+  DataValue,
+  StatisticsWrapper,
 } from "./Main.styles";
 import { UserContext } from "@/contexts";
-import { getUser } from "@/utils/user";
 
-export const Main: React.FC = () => {
-  const [username, setUsername] = React.useState("");
-  const { user, setUser } = React.useContext(UserContext);
+interface DataDisplayProps {
+  title: string;
+  value: number;
+}
+
+const DataDisplay: React.FC<DataDisplayProps> = ({ title, value }) => {
   const theme = useTheme();
 
-  const onSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setUsername(event.target.value);
-  const onFormSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    getUser(username, setUser);
-  };
+  return (
+    <DisplayWrapper>
+      <DataTitle sx={{ color: theme.palette.text.secondary }}>
+        {title}
+      </DataTitle>
+      <DataValue sx={{ color: theme.palette.text.primary }}>
+        {String(value).replace(/(\d{1,3}|\G\d{3})(?=(?:\d{3})+(?!\d))/g, "$1,")}
+      </DataValue>
+    </DisplayWrapper>
+  );
+};
+
+export const Main: React.FC = () => {
+  const { user } = React.useContext(UserContext);
+  const theme = useTheme();
 
   return (
     <MainWrapper>
-      <FormWrapper onSubmit={onFormSubmit}>
-        <SearchInput
-          sx={{ borderColor: theme.palette.primary.main }}
-          placeholder="Inform user name"
-          value={username}
-          onChange={onSearchInputChange}
-          required
-        />
-        <SubmitButton variant="contained" type="submit">
-          Search
-        </SubmitButton>
-      </FormWrapper>
       {user ? (
         <React.Fragment>
           <UserAvatar
@@ -48,25 +49,35 @@ export const Main: React.FC = () => {
             alt={user?.login}
             sx={{ borderColor: theme.palette.primary.main }}
           />
-          <InfoWrapper>
-            <UserFullName
-              href={`https://github.com/${user?.login}`}
-              target="_blank"
-              sx={[
-                { color: theme.palette.text.primary },
-                { "&:hover": { color: theme.palette.primary.main } },
-              ]}
-              title="Open in Github"
-            >
-              {user?.name}
-            </UserFullName>
-            <UserName sx={{ color: theme.palette.text.secondary }}>
-              {user?.login}
-            </UserName>
-            <UserBio sx={{ color: theme.palette.text.primary }}>
-              {user?.bio}
-            </UserBio>
-          </InfoWrapper>
+          <Content>
+            <InfoWrapper>
+              <UserName sx={[{ color: theme.palette.text.primary }]}>
+                {user?.name} ({user?.login})
+              </UserName>
+              <UserBio sx={{ color: theme.palette.text.secondary }}>
+                {user?.bio}
+              </UserBio>
+            </InfoWrapper>
+            <StatisticsWrapper>
+              <ViewButton
+                href={`https://github.com/${user?.login}`}
+                target="_blank"
+                sx={[
+                  {
+                    color: theme.palette.text.primary,
+                    borderColor: theme.palette.text.primary,
+                  },
+                  { "&:hover": { borderColor: theme.palette.primary.main } },
+                ]}
+              >
+                View Github
+              </ViewButton>
+              <DataDisplay title="Seguidores" value={user?.followers} />
+              <DataDisplay title="Seguindo" value={user?.following} />
+              <DataDisplay title="Repositórios" value={user?.public_repos} />
+              <DataDisplay title="Estrelas" value={user?.stars} />
+            </StatisticsWrapper>
+          </Content>
         </React.Fragment>
       ) : (
         ""
