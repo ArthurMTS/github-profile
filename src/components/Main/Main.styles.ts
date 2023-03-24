@@ -47,7 +47,6 @@ export const ViewButton = styled(Link)({
   },
 });
 
-
 export const UserAvatar = styled("img")({
   height: 150,
   width: 150,
@@ -121,31 +120,5 @@ export const StatisticsWrapper = styled("div")({
     flexDirection: "column",
     alignItems: "flex-start",
     marginLeft: 80,
-  },
-});
-
-export const DisplayWrapper = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-});
-
-export const DataTitle = styled(Typography)({
-  fontSize: 16,
-  "@media(max-width: 790px)": {
-    fontSize: 12,
-  },
-  "@media(max-width: 520px)": {
-    fontSize: 10,
-  },
-});
-
-export const DataValue = styled(Typography)({
-  fontSize: 24,
-  fontWeight: 700,
-  "@media(max-width: 790px)": {
-    fontSize: 18,
-  },
-  "@media(max-width: 520px)": {
-    fontSize: 16,
   },
 });

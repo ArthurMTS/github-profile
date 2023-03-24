@@ -14,16 +14,12 @@ interface UserProviderProps {
 
 export const UserContext = React.createContext({} as UserContextData);
 
-export const UserProvider: React.FC<UserProviderProps> = ({
-  children,
-}) => {
+export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = React.useState<User | null>(null);
   const [loading, setLoading] = React.useState(false);
 
   return (
-    <UserContext.Provider
-      value={{ user, setUser, loading, setLoading }}
-    >
+    <UserContext.Provider value={{ user, setUser, loading, setLoading }}>
       {children}
     </UserContext.Provider>
   );

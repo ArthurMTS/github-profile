@@ -1,6 +1,7 @@
 import { useTheme } from "@mui/material/styles";
 import React from "react";
 
+import { StatisticDisplay } from "@/components";
 import {
   InfoWrapper,
   Content,
@@ -9,9 +10,6 @@ import {
   UserBio,
   UserName,
   ViewButton,
-  DisplayWrapper,
-  DataTitle,
-  DataValue,
   StatisticsWrapper,
 } from "./Main.styles";
 import { User } from "@/config/types";
@@ -19,26 +17,6 @@ import { User } from "@/config/types";
 interface MainProps {
   user: User;
 }
-
-interface DataDisplayProps {
-  title: string;
-  value: number;
-}
-
-const DataDisplay: React.FC<DataDisplayProps> = ({ title, value }) => {
-  const theme = useTheme();
-
-  return (
-    <DisplayWrapper>
-      <DataTitle sx={{ color: theme.palette.text.secondary }}>
-        {title}
-      </DataTitle>
-      <DataValue sx={{ color: theme.palette.text.primary }}>
-        {String(value).replace(/(\d{1,3}|\G\d{3})(?=(?:\d{3})+(?!\d))/g, "$1,")}
-      </DataValue>
-    </DisplayWrapper>
-  );
-};
 
 export const Main: React.FC<MainProps> = ({ user }) => {
   const theme = useTheme();
@@ -73,10 +51,10 @@ export const Main: React.FC<MainProps> = ({ user }) => {
           >
             View Github
           </ViewButton>
-          <DataDisplay title="Seguidores" value={user?.followers} />
-          <DataDisplay title="Seguindo" value={user?.following} />
-          <DataDisplay title="Repositórios" value={user?.public_repos} />
-          <DataDisplay title="Estrelas" value={user?.stars} />
+          <StatisticDisplay title="Seguidores" value={user?.followers} />
+          <StatisticDisplay title="Seguindo" value={user?.following} />
+          <StatisticDisplay title="Repositórios" value={user?.public_repos} />
+          <StatisticDisplay title="Estrelas" value={user?.stars} />
         </StatisticsWrapper>
       </Content>
     </MainWrapper>

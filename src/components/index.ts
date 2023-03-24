@@ -3,3 +3,7 @@ export { Header } from "./Header/Header";
 export { PageContainer } from "./PageContainer/PageContainer";
 export { Main } from "./Main/Main";
 export { Aside } from "./Aside/Aside";
+export { RepoCard } from "./RepoCard/RepoCard";
+export { UserCard } from "./UserCard/UserCard";
+export { ListItem } from "./ListItem/ListItem";
+export { StatisticDisplay } from "./StatisticDisplay/StatisticDisplay";
