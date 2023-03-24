@@ -11,4 +11,7 @@ export const PageContainerWrapper = styled("main")({
     flexDirection: "column",
     alignItems: "center",
   },
+  "@media(max-width: 330px)": {
+    padding: "0 calc(1vw + 60px) 0 1vw",
+  },
 });

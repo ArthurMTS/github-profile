@@ -59,6 +59,10 @@ export const UserAvatar = styled("img")({
     height: 100,
     width: 100,
   },
+  "@media(max-width: 330px)": {
+    height: 80,
+    width: 80,
+  },
 });
 
 export const InfoWrapper = styled("div")({
@@ -79,6 +83,11 @@ export const UserName = styled(Typography)({
   "@media(max-width: 823px)": {
     fontSize: 20,
   },
+  "@media(max-width: 330px)": {
+    fontSize: 16,
+    width: 240,
+    paddingLeft: 40,
+  },
 });
 
 export const UserBio = styled(Typography)({
@@ -94,6 +103,11 @@ export const UserBio = styled(Typography)({
   "@media(max-width: 520px)": {
     width: "100%",
   },
+  "@media(max-width: 330px)": {
+    fontSize: 12,
+    width: 240,
+    paddingLeft: 40,
+  },
 });
 
 export const StatisticsWrapper = styled("div")({
@@ -102,6 +116,11 @@ export const StatisticsWrapper = styled("div")({
   alignItems: "center",
   "@media(max-width: 520px)": {
     gap: 5,
+  },
+  "@media(max-width: 330px)": {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginLeft: 80,
   },
 });
 
