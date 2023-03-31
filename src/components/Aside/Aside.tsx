@@ -15,81 +15,52 @@ interface AsideProps {
 
 export const Aside: React.FC<AsideProps> = ({ user }) => {
   const [control, setControl] = React.useState(0);
+  const listItems = ["Repositórios", "Estrelas", "Seguidores", "Seguindo"];
+  const icons = [BookIcon, StarIcon, PeopleAltIcon, PersonPinCircleIcon];
   const theme = useTheme();
+  let display;
+
+  if (control === 0 || control === 1) {
+    const list = control === 0 ? [...user?.repos_list] : [...user?.stars_list];
+    display = list.map((repo, index) => (
+      <RepoCard
+        key={index}
+        title={repo?.name}
+        description={repo?.description}
+        language={repo?.language}
+        updatedAt={repo?.updated_at}
+        url={repo?.html_url}
+      />
+    ));
+  } else if (control === 2 || control === 3) {
+    const list =
+      control === 2 ? [...user?.followers_list] : [...user?.following_list];
+    display = list.map((following, index) => (
+      <UserCard
+        key={index}
+        avatar={following?.avatar_url}
+        login={following?.login}
+      />
+    ));
+  }
 
   return (
     <AsideWrapper>
       <Controls variant="permanent" anchor="right" open={true}>
         <List>
-          <ListItem
-            active={control === 0}
-            title="Repositórios"
-            onClick={() => setControl(0)}
-            ListIcon={BookIcon}
-          />
-          <ListItem
-            active={control === 1}
-            title="Estrelas"
-            onClick={() => setControl(1)}
-            ListIcon={StarIcon}
-          />
-          <ListItem
-            active={control === 2}
-            title="Seguidores"
-            onClick={() => setControl(2)}
-            ListIcon={PeopleAltIcon}
-          />
-          <ListItem
-            active={control === 3}
-            title="Seguindo"
-            onClick={() => setControl(3)}
-            ListIcon={PersonPinCircleIcon}
-          />
+          {listItems.map((item, index) => (
+            <ListItem
+              key={index}
+              active={control === index}
+              title={item}
+              onClick={() => setControl(index)}
+              ListIcon={icons[index]}
+            />
+          ))}
         </List>
       </Controls>
       <Display sx={{ background: theme.palette.background.default }}>
-        {control === 0
-          ? user?.repos_list.map((repo, index) => (
-              <RepoCard
-                key={index}
-                title={repo?.name}
-                description={repo?.description}
-                language={repo?.language}
-                updatedAt={repo?.updated_at}
-                url={repo?.html_url}
-              />
-            ))
-          : ""}
-        {control === 1
-          ? user?.stars_list.map((repo, index) => (
-              <RepoCard
-                key={index}
-                title={repo?.name}
-                description={repo?.description}
-                language={repo?.language}
-                updatedAt={repo?.updated_at}
-                url={repo?.html_url}
-              />
-            ))
-          : ""}
-        {control === 2
-          ? user?.followers_list.map((follower, index) => (
-              <UserCard
-                key={index}
-                avatar={follower?.avatar_url}
-                login={follower?.login}
-              />
-            ))
-          : ""}
-        {control === 3
-          ? user?.following_list.map((following, index) => (
-              <UserCard
-                key={index}
-                avatar={following?.avatar_url}
-                login={following?.login}
-              />
-            ))
-          : ""}
+        {display}
       </Display>
     </AsideWrapper>
   );

@@ -9,17 +9,17 @@ import {
   SubmitButton,
   ModeSwitch,
 } from "./Header.styles";
-import { ColorModeContext, UserContext } from "@/contexts";
+import { ThemeContext, UserContext } from "@/contexts";
 import { getUser } from "@/utils/user";
 
 export const Header: React.FC = () => {
   const [username, setUsername] = React.useState("");
   const [error, setError] = React.useState(false);
-  const { mode, toggleColorMode } = React.useContext(ColorModeContext);
+  const { mode, toggleTheme } = React.useContext(ThemeContext);
   const { setUser, setLoading } = React.useContext(UserContext);
   const theme = useTheme();
 
-  const onSwitchButtonClick = () => toggleColorMode();
+  const onSwitchButtonClick = () => toggleTheme();
   const onSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(event.target.value);
   const onFormSubmit = async (event: React.FormEvent) => {

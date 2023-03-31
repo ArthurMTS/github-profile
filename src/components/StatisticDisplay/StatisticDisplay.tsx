@@ -5,6 +5,7 @@ import {
   StatisticValue,
   StatisticWrapper,
 } from "./StatisticDisplay.styles";
+import { formatValue } from "@/utils/value";
 
 interface StatisticDisplayProps {
   title: string;
@@ -23,7 +24,7 @@ export const StatisticDisplay: React.FC<StatisticDisplayProps> = ({
         {title}
       </StatisticTitle>
       <StatisticValue sx={{ color: theme.palette.text.primary }}>
-        {String(value).replace(/(\d{1,3}|\G\d{3})(?=(?:\d{3})+(?!\d))/g, "$1,")}
+        {formatValue(value)}
       </StatisticValue>
     </StatisticWrapper>
   );
